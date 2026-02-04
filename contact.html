@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - OMC</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="OMC Logo" class="logo-icon">
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                <li><a href="about.html" data-ar="من نحن" data-en="About">من نحن</a></li>
+                <li><a href="services.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a></li>
+                <li><a href="contact.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a></li>
+            </ul>
+            <div class="lang-toggle">
+                <button id="langBtn" class="lang-btn" data-ar="EN" data-en="AR">EN</button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</h2>
+                <p data-ar="نحن هنا للاستجابة لأسئلتك والاستماع إلى ملاحظاتك" data-en="We're here to answer your questions and hear your feedback">نحن هنا للاستجابة لأسئلتك والاستماع إلى ملاحظاتك</p>
+            </div>
+            
+            <div class="contact-wrapper">
+                <!-- Contact Information Cards -->
+                <div class="contact-info">
+                    <div class="info-card">
+                        <h3 data-ar="الهاتف" data-en="Phone">الهاتف</h3>
+                        <div class="card-content">
+                            <p dir="ltr">0555756581</p>
+                            <p dir="ltr">0505770258</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</h3>
+                        <div class="card-content">
+                            <p><a href="mailto:omc.sa@hotmail.com" dir="ltr">omc.sa@hotmail.com</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3 data-ar="الموقع" data-en="Location">الموقع</h3>
+                        <div class="card-content">
+                            <p data-ar="السعودية" data-en="Saudi Arabia">السعودية</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name" data-ar="الاسم" data-en="Name">الاسم <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" data-ar-placeholder="أدخل اسمك" data-en-placeholder="Enter your name" required>
+                        <span class="error-message" id="nameError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" data-ar-placeholder="أدخل بريدك الإلكتروني" data-en-placeholder="Enter your email">
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" data-ar="رقم الهاتف" data-en="Phone">رقم الهاتف <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" data-ar-placeholder="أدخل رقم هاتفك" data-en-placeholder="Enter your phone number">
+                        <span class="error-message" id="phoneError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" data-ar="الرسالة" data-en="Message">الرسالة</label>
+                        <textarea id="message" name="message" rows="5" data-ar-placeholder="اكتب رسالتك هنا" data-en-placeholder="Write your message here"></textarea>
+                    </div>
+
+                    <div class="required-note">
+                        <span class="required">*</span>
+                        <span data-ar="الحقول المجبرة" data-en="Required fields">الحقول المجبرة</span>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit" data-ar="إرسال" data-en="Send">إرسال</button>
+                    <span class="submit-message" id="submitMessage"></span>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 data-ar="OMC" data-en="OMC">OMC</h3>
+                    <img src="logo.png" alt="OMC Logo" class="footer-logo">
+                </div>
+                <div class="footer-section">
+                    <h4 data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h4>
+                    <ul>
+                        <li><a href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                        <li><a href="about.html" data-ar="من نحن" data-en="About">من نحن</a></li>
+                        <li><a href="services.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a></li>
+                        <li><a href="contact.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</h4>
+                    <p><strong data-ar="الهاتف:" data-en="Phone:">الهاتف:</strong></p>
+                    <p dir="ltr">0555756581</p>
+                    <p dir="ltr">0505770258</p>
+                    <p><strong data-ar="البريد:" data-en="Email:">البريد:</strong></p>
+                    <p dir="ltr">omc.sa@hotmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-ar="جميع الحقوق محفوظة © 2024 OMC" data-en="All rights reserved © 2024 OMC">جميع الحقوق محفوظة © 2024 OMC</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البحث والتطوير - OMC</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="logo.png" alt="OMC Logo" class="logo-icon">
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                <li><a href="about.html" data-ar="من نحن" data-en="About">من نحن</a></li>
+                <li><a href="services.html" data-ar="خدماتنا" data-en="Services">خدماتنا</a></li>
+                <li><a href="contact.html" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a></li>
+            </ul>
+            <div class="lang-toggle">
+                <button id="langBtn" class="lang-btn" data-ar="EN" data-en="AR">EN</button>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-right"></i> <span data-ar="العودة" data-en="Back">العودة</span></a>
+            <h1 data-ar="البحث والتطوير" data-en="Research & Development">البحث والتطوير</h1>
+            <p data-ar="استثمار مستمر في التطوير والابتكار لأفضل المنتجات" data-en="Continuous investment in innovation and development for better products">استثمار مستمر في التطوير والابتكار لأفضل المنتجات</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <h2 data-ar="معرض الصور" data-en="Photo Gallery">معرض الصور</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Research+Lab" alt="مختبر البحث">
+                    <p data-ar="مختبر البحث" data-en="Research Laboratory">مختبر البحث</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Testing+Equipment" alt="معدات الاختبار">
+                    <p data-ar="معدات الاختبار الحديثة" data-en="Modern Testing Equipment">معدات الاختبار الحديثة</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Quality+Analysis" alt="تحليل الجودة">
+                    <p data-ar="تحليل الجودة" data-en="Quality Analysis">تحليل الجودة</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Innovation+Center" alt="مركز الابتكار">
+                    <p data-ar="مركز الابتكار" data-en="Innovation Center">مركز الابتكار</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Research+Team" alt="فريق البحث">
+                    <p data-ar="فريق الباحثين" data-en="Research Team">فريق الباحثين</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300?text=Development" alt="التطوير">
+                    <p data-ar="عمليات التطوير" data-en="Development Process">عمليات التطوير</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="service-details">
+                <h2 data-ar="تفاصيل الخدمة" data-en="Service Details">تفاصيل الخدمة</h2>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3 data-ar="الابتكار المستمر" data-en="Continuous Innovation">الابتكار المستمر</h3>
+                        <p data-ar="تطوير منتجات جديدة وتحسين القائمة" data-en="Developing new products and improving existing ones">تطوير منتجات جديدة وتحسين القائمة</p>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-cog"></i>
+                        <h3 data-ar="معدات متقدمة" data-en="Advanced Equipment">معدات متقدمة</h3>
+                        <p data-ar="مختبرات مجهزة بأحدث التقنيات" data-en="Labs equipped with latest technology">مختبرات مجهزة بأحدث التقنيات</p>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-brain"></i>
+                        <h3 data-ar="فريق متخصص" data-en="Expert Team">فريق متخصص</h3>
+                        <p data-ar="باحثون متخصصون وخبراء الصناعة" data-en="Specialized researchers and industry experts">باحثون متخصصون وخبراء الصناعة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <img src="logo.png" alt="OMC Logo" class="footer-logo">
+            </div>
+            <p>&copy; 2024 شركة المعدن الشرقي للصناعة - جميع الحقوق محفوظة</p>
+            <p>Oriental Metal Company for Industry - All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# Database
+database.db
+*.db
+
+# Environment variables
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Python
+*.pyc
+__pycache__/

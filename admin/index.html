@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMC Admin Panel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Login Page */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a3a52 0%, #2c5aa0 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #1a3a52;
+        }
+
+        .login-box .subtitle {
+            text-align: center;
+            color: #999;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2c5aa0;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #2c5aa0 0%, #1a3a52 100%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* Admin Dashboard */
+        .admin-header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h1 {
+            color: #1a3a52;
+            font-size: 1.8rem;
+        }
+
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .change-password-btn, .logout-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .change-password-btn {
+            background: #FFA500;
+            color: white;
+        }
+
+        .logout-btn {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background: #b71c1c;
+        }
+
+        /* Messages Table */
+        .messages-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .messages-header {
+            padding: 20px;
+            background: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .messages-header h2 {
+            color: #1a3a52;
+            font-size: 1.3rem;
+        }
+
+        .messages-count {
+            background: #2c5aa0;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f5f5f5;
+            border-bottom: 2px solid #ddd;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .unread-row {
+            background: #e3f2fd;
+            font-weight: 500;
+        }
+
+        .message-preview {
+            color: #666;
+            font-size: 0.9rem;
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-unread {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-read {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn, .mark-btn, .delete-btn, .reply-email-btn, .reply-sms-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .view-btn {
+            background: #2c5aa0;
+            color: white;
+        }
+
+        .mark-btn {
+            background: #FFA500;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .reply-email-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .reply-sms-btn {
+            background: #9C27B0;
+            color: white;
+        }
+
+        .view-btn:hover { background: #1a3a52; }
+        .mark-btn:hover { background: #ff8c00; }
+        .delete-btn:hover { background: #b71c1c; }
+        .reply-email-btn:hover { background: #45a049; }
+        .reply-sms-btn:hover { background: #7B1FA2; }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            color: #1a3a52;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .message-detail {
+            margin-bottom: 20px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #1a3a52;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #666;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            word-break: break-word;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        /* Password Change Modal */
+        .password-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .password-form .form-group {
+            margin: 0;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        /* Reply Form */
+        .reply-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .reply-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .reply-form textarea:focus {
+            outline: none;
+            border-color: #2c5aa0;
+        }
+
+        .send-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .send-btn:hover {
+            background: #45a049;
+        }
+
+        .send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .admin-user {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .change-password-btn, .logout-btn {
+                width: 100%;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .view-btn, .mark-btn, .delete-btn {
+                width: 100%;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <h1>OMC Admin Panel</h1>
+            <p class="subtitle">Access the message dashboard</p>
+            <div class="error-message" id="loginError"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminPage" style="display: none;">
+        <div class="container">
+            <div class="admin-header">
+                <h1>OMC - Messages Dashboard</h1>
+                <div class="admin-user">
+                    <span id="adminUsername"></span>
+                    <button class="change-password-btn" onclick="openPasswordModal()">Change Password</button>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+
+            <div class="messages-container">
+                <div class="messages-header">
+                    <h2>Contact Form Submissions</h2>
+                    <span class="messages-count" id="messageCount">0</span>
+                </div>
+                <div class="table-wrapper">
+                    <table id="messagesTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messagesBody">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 40px;">
+                                    <div class="empty-state">
+                                        <div class="empty-state-icon">📭</div>
+                                        <p>No messages yet</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Detail Modal -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Message Details</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="messageDetails"></div>
+            <div class="modal-actions">
+                <button class="delete-btn" onclick="deleteCurrentMessage()" style="flex: 1;">Delete Message</button>
+                <button class="view-btn" onclick="closeModal()" style="flex: 1;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Change Password</h2>
+                <button class="close-btn" onclick="closePasswordModal()">&times;</button>
+            </div>
+            <div class="success-message" id="passwordSuccess">Password changed successfully!</div>
+            <form id="passwordForm" class="password-form">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" name="currentPassword" required autocomplete="current-password">
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" name="newPassword" required autocomplete="new-password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="new-password">
+                </div>
+                <div class="error-message" id="passwordError"></div>
+                <button type="submit" class="view-btn" style="width: 100%; cursor: pointer;">Change Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Email Reply Modal -->
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Send Email Reply</h2>
+                <button class="close-btn" onclick="closeEmailModal()">&times;</button>
+            </div>
+            <div class="success-message" id="emailSuccess">Email sent successfully!</div>
+            <div class="error-message" id="emailError"></div>
+            <form id="emailForm" class="reply-form">
+                <div class="form-group">
+                    <label for="emailTo">To:</label>
+                    <input type="email" id="emailTo" name="emailTo" required readonly style="background: #f5f5f5;">
+                </div>
+                <div class="form-group">
+                    <label for="emailSubject">Subject:</label>
+                    <input type="text" id="emailSubject" name="emailSubject" required placeholder="Enter subject">
+                </div>
+                <div class="form-group">
+                    <label for="emailMessage">Message:</label>
+                    <textarea id="emailMessage" name="emailMessage" required placeholder="Enter your message..."></textarea>
+                </div>
+                <button type="submit" class="send-btn">Send Email</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SMS Reply Modal -->
+    <div id="smsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Send SMS Reply</h2>
+                <button class="close-btn" onclick="closeSmsModal()">&times;</button>
+            </div>
+            <div class="success-message" id="smsSuccess">SMS sent successfully!</div>
+            <div class="error-message" id="smsError"></div>
+            <form id="smsForm" class="reply-form">
+                <div class="form-group">
+                    <label for="smsTo">To:</label>
+                    <input type="tel" id="smsTo" name="smsTo" required readonly style="background: #f5f5f5;">
+                </div>
+                <div class="form-group">
+                    <label for="smsMessage">Message:</label>
+                    <textarea id="smsMessage" name="smsMessage" required placeholder="Enter your SMS message..." maxlength="320"></textarea>
+                    <small style="color: #999;">Max 320 characters</small>
+                </div>
+                <button type="submit" class="send-btn">Send SMS</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentMessageId = null;
+
+        // Check if already logged in
+        window.addEventListener('load', checkAuth);
+
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/admin/check');
+                const data = await response.json();
+                
+                if (data.authenticated) {
+                    showAdminPanel(data.username);
+                    loadMessages();
+                } else {
+                    showLoginPage();
+                }
+            } catch (error) {
+                console.error('Auth check error:', error);
+                showLoginPage();
+            }
+        }
+
+        function showLoginPage() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('adminPage').style.display = 'none';
+        }
+
+        function showAdminPanel(username) {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('adminPage').style.display = 'block';
+            document.getElementById('adminUsername').textContent = `Welcome, ${username}!`;
+        }
+
+        // Login
+        document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('loginError');
+
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    errorDiv.style.display = 'none';
+                    showAdminPanel(username);
+                    loadMessages();
+                } else {
+                    errorDiv.textContent = data.error || 'Login failed';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'An error occurred. Please try again.';
+                errorDiv.style.display = 'block';
+            }
+        });
+
+        // Load messages
+        async function loadMessages() {
+            try {
+                const response = await fetch('/api/admin/messages');
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        showLoginPage();
+                        return;
+                    }
+                    throw new Error('Failed to load messages');
+                }
+
+                const messages = await response.json();
+                displayMessages(messages);
+            } catch (error) {
+                console.error('Error loading messages:', error);
+            }
+        }
+
+        function displayMessages(messages) {
+            const tbody = document.getElementById('messagesBody');
+            const count = document.getElementById('messageCount');
+
+            count.textContent = messages.length;
+
+            if (messages.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px;">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📭</div>
+                                <p>No messages yet</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = messages.map(msg => `
+                <tr class="${msg.read ? '' : 'unread-row'}">
+                    <td><strong>${escapeHtml(msg.name)}</strong></td>
+                    <td>${msg.email ? escapeHtml(msg.email) : '—'}</td>
+                    <td>${msg.phone ? escapeHtml(msg.phone) : '—'}</td>
+                    <td><div class="message-preview">${msg.message ? escapeHtml(msg.message) : '—'}</div></td>
+                    <td><span class="status-badge ${msg.read ? 'status-read' : 'status-unread'}">${msg.read ? 'Read' : 'Unread'}</span></td>
+                    <td>${new Date(msg.timestamp).toLocaleDateString()}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="view-btn" onclick="viewMessage(${msg.id})">View</button>
+                            ${!msg.read ? `<button class="mark-btn" onclick="markAsRead(${msg.id})">Mark Read</button>` : ''}
+                            ${msg.email ? `<button class="reply-email-btn" onclick="openEmailModal(${msg.id}, '${escapeHtml(msg.email)}', '${escapeHtml(msg.name)}')">Email</button>` : ''}
+                            ${msg.phone ? `<button class="reply-sms-btn" onclick="openSmsModal(${msg.id}, '${escapeHtml(msg.phone)}', '${escapeHtml(msg.name)}')">SMS</button>` : ''}
+                            <button class="delete-btn" onclick="deleteMessage(${msg.id})">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function viewMessage(id) {
+            const response = fetch(`/api/admin/messages`);
+            response.then(r => r.json()).then(messages => {
+                const msg = messages.find(m => m.id === id);
+                if (msg) {
+                    currentMessageId = id;
+                    document.getElementById('messageDetails').innerHTML = `
+                        <div class="message-detail">
+                            <div class="detail-label">Name</div>
+                            <div class="detail-value">${escapeHtml(msg.name)}</div>
+                        </div>
+                        <div class="message-detail">
+                            <div class="detail-label">Email</div>
+                            <div class="detail-value">${msg.email ? escapeHtml(msg.email) : 'Not provided'}</div>
+                        </div>
+                        <div class="message-detail">
+                            <div class="detail-label">Phone</div>
+                            <div class="detail-value">${msg.phone ? escapeHtml(msg.phone) : 'Not provided'}</div>
+                        </div>
+                        <div class="message-detail">
+                            <div class="detail-label">Message</div>
+                            <div class="detail-value" style="white-space: pre-wrap;">${msg.message ? escapeHtml(msg.message) : 'No message'}</div>
+                        </div>
+                        <div class="message-detail">
+                            <div class="detail-label">Received</div>
+                            <div class="detail-value">${new Date(msg.timestamp).toLocaleString()}</div>
+                        </div>
+                    `;
+                    document.getElementById('messageModal').classList.add('show');
+                    
+                    // Mark as read if unread
+                    if (!msg.read) {
+                        markAsRead(id);
+                    }
+                }
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('messageModal').classList.remove('show');
+            currentMessageId = null;
+        }
+
+        async function markAsRead(id) {
+            try {
+                await fetch(`/api/admin/messages/${id}/read`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                loadMessages();
+            } catch (error) {
+                console.error('Error marking as read:', error);
+            }
+        }
+
+        async function deleteMessage(id) {
+            if (!confirm('Are you sure you want to delete this message?')) return;
+            
+            try {
+                await fetch(`/api/admin/messages/${id}`, {
+                    method: 'DELETE'
+                });
+                loadMessages();
+            } catch (error) {
+                console.error('Error deleting message:', error);
+            }
+        }
+
+        function deleteCurrentMessage() {
+            if (currentMessageId) {
+                deleteMessage(currentMessageId).then(() => {
+                    closeModal();
+                });
+            }
+        }
+
+        async function logout() {
+            try {
+                await fetch('/api/admin/logout', { method: 'POST' });
+                showLoginPage();
+                document.getElementById('loginForm').reset();
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
+
+        // Password change
+        function openPasswordModal() {
+            document.getElementById('passwordSuccess').style.display = 'none';
+            document.getElementById('passwordError').textContent = '';
+            document.getElementById('passwordForm').reset();
+            document.getElementById('passwordModal').classList.add('show');
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('show');
+        }
+
+        document.getElementById('passwordForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorDiv = document.getElementById('passwordError');
+            const successDiv = document.getElementById('passwordSuccess');
+
+            errorDiv.textContent = '';
+            successDiv.style.display = 'none';
+
+            if (newPassword !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match';
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                errorDiv.textContent = 'New password must be at least 6 characters';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/admin/change-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ currentPassword, newPassword })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    successDiv.style.display = 'block';
+                    document.getElementById('passwordForm').reset();
+                    setTimeout(() => {
+                        closePasswordModal();
+                    }, 1500);
+                } else {
+                    errorDiv.textContent = data.error || 'Failed to change password';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'An error occurred. Please try again.';
+            }
+        });
+
+        // Modal close on background click
+        window.addEventListener('click', (e) => {
+            const messageModal = document.getElementById('messageModal');
+            const passwordModal = document.getElementById('passwordModal');
+            const emailModal = document.getElementById('emailModal');
+            const smsModal = document.getElementById('smsModal');
+            
+            if (e.target === messageModal) closeModal();
+            if (e.target === passwordModal) closePasswordModal();
+            if (e.target === emailModal) closeEmailModal();
+            if (e.target === smsModal) closeSmsModal();
+        });
+
+        // Email reply functions
+        function openEmailModal(messageId, email, name) {
+            document.getElementById('emailTo').value = email;
+            document.getElementById('emailSubject').value = `Re: Your message to OMC`;
+            document.getElementById('emailMessage').value = `Dear ${name},\n\nThank you for contacting OMC.\n\n`;
+            document.getElementById('emailSuccess').style.display = 'none';
+            document.getElementById('emailError').style.display = 'none';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('emailModal').classList.add('show');
+        }
+
+        function closeEmailModal() {
+            document.getElementById('emailModal').classList.remove('show');
+            document.getElementById('emailForm').reset();
+        }
+
+        document.getElementById('emailForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const to = document.getElementById('emailTo').value;
+            const subject = document.getElementById('emailSubject').value;
+            const message = document.getElementById('emailMessage').value;
+            const errorDiv = document.getElementById('emailError');
+            const successDiv = document.getElementById('emailSuccess');
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            try {
+                const response = await fetch('/api/admin/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ to, subject, message })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    successDiv.style.display = 'block';
+                    document.getElementById('emailForm').reset();
+                    setTimeout(() => {
+                        closeEmailModal();
+                    }, 2000);
+                } else {
+                    errorDiv.textContent = data.error || 'Failed to send email';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'An error occurred. Please try again.';
+                errorDiv.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Email';
+            }
+        });
+
+        // SMS reply functions
+        function openSmsModal(messageId, phone, name) {
+            document.getElementById('smsTo').value = phone;
+            document.getElementById('smsMessage').value = `Dear ${name}, Thank you for contacting OMC. `;
+            document.getElementById('smsSuccess').style.display = 'none';
+            document.getElementById('smsError').style.display = 'none';
+            document.getElementById('smsError').textContent = '';
+            document.getElementById('smsModal').classList.add('show');
+        }
+
+        function closeSmsModal() {
+            document.getElementById('smsModal').classList.remove('show');
+            document.getElementById('smsForm').reset();
+        }
+
+        document.getElementById('smsForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const to = document.getElementById('smsTo').value;
+            const message = document.getElementById('smsMessage').value;
+            const errorDiv = document.getElementById('smsError');
+            const successDiv = document.getElementById('smsSuccess');
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            try {
+                const response = await fetch('/api/admin/send-sms', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ to, message })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    successDiv.style.display = 'block';
+                    document.getElementById('smsForm').reset();
+                    setTimeout(() => {
+                        closeSmsModal();
+                    }, 2000);
+                } else {
+                    errorDiv.textContent = data.error || 'Failed to send SMS';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'An error occurred. Please try again.';
+                errorDiv.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send SMS';
+            }
+        });
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Auto-load messages every 30 seconds
+        setInterval(() => {
+            if (document.getElementById('adminPage').style.display !== 'none') {
+                loadMessages();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
